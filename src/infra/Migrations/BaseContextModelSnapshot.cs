@@ -67,6 +67,10 @@ namespace infra.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("BirthDate");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Phone")
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)")

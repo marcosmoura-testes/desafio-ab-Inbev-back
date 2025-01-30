@@ -1,9 +1,10 @@
-﻿using domain.Entity;
+﻿using application.Interfaces;
+using domain.Entity;
 using domain.UoW;
 
 namespace application.UseCases;
 
-public class QueryEmployeeUseCase
+public class QueryEmployeeUseCase: IQueryEmployeeUseCase
 {
     private readonly IUnitOfWork _unitOfWork;
 

@@ -1,9 +1,10 @@
-﻿using domain.Entity;
+﻿using application.Interfaces;
+using domain.Entity;
 using domain.UoW;
 
 namespace application.UseCases;
 
-public class DeleteEmployeeUseCase
+public class DeleteEmployeeUseCase: IDeleteEmployeeUseCase
 {
     private readonly IUnitOfWork _unitOfWork;
 
