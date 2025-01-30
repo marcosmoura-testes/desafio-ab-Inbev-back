@@ -1,4 +1,5 @@
-﻿using EntityState = Microsoft.EntityFrameworkCore.EntityState;
+﻿using System.Linq.Expressions;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace infra.Repository;
 
@@ -20,6 +21,14 @@ public class BaseRepository<T, TId> where T : class
     public IList<T> GetAll()
     {
         return _context.Set<T>().ToList();
+    }
+
+    public IList<T> GetAllPaginated(int limit, int page)
+    {
+        return _context.Set<T>()
+            .Skip((page - 1) * limit)
+            .Take(limit)
+            .ToList();
     }
 
     public T Save(T t)

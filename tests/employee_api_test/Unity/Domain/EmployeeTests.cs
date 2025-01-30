@@ -16,7 +16,7 @@ public class EmployeeTests
             City = "London",
             State = "CA",
             DocumentNumber = "12345678",
-            BirthDate = DateTime.Now,
+            BirthDate = DateTime.Now.AddYears(-18),
             ManagerName = "John Doe"
         };
         

@@ -1,6 +1,14 @@
-﻿namespace infra.Repository;
+﻿using domain.Entity;
+using domain.Interfaces.Repository;
 
-public class EmployeeRepository 
+namespace infra.Repository;
+
+public class EmployeeRepository : BaseRepository<Employee, int>, IEmployeeRepository
 {
-    
+    private BaseContext _context;
+
+    public EmployeeRepository(BaseContext context) : base(context)
+    {
+        _context = context;
+    }
 }

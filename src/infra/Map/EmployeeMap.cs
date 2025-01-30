@@ -17,30 +17,38 @@ internal class EmployeeMap : IEntityTypeConfiguration<Employee>
             .HasColumnName("BirthDate");
         
         builder.Property(c => c.Email)
+            .HasMaxLength(150)
             .HasColumnName("Email");
 
         builder.Property(c => c.DocumentNumber)
+            .HasMaxLength(20)
             .HasColumnName("DocumentNumber");
 
         builder.Property(c => c.Phone)
+            .HasMaxLength(15)
             .HasColumnName("Phone");
         
         builder.Property(c => c.Address)
+            .HasMaxLength(250)
             .HasColumnName("Address");
         
         builder.Property(c => c.AddressNumber)
             .HasColumnName("AddressNumber");
         
         builder.Property(c => c.City)
+            .HasMaxLength(100)
             .HasColumnName("City");
         
            builder.Property(c => c.State)
+               .HasMaxLength(100)
             .HasColumnName("State");
            
            builder.Property(c => c.Zip)
+               .HasMaxLength(10)
                .HasColumnName("Zip");
            
            builder.Property(c => c.ManagerName)
+               .HasMaxLength(150)
                .HasColumnName("ManagerName");
 
     }

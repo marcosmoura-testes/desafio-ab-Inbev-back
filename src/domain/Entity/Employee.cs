@@ -16,6 +16,7 @@ public class Employee
     public string? State { get; set; }
     public string? Zip { get; set; }
     public string? ManagerName { get; set; }
+    public string Password { get; set; }
 
     public (bool isValid, string[] errorMessages) IsValid()
     {
@@ -25,6 +26,8 @@ public class Employee
         
         return (result.IsValid, result.Errors.Select(x => x.ErrorMessage).ToArray());
     }
+    
+    
 }
 
 public class EmployeeValidation : AbstractValidator<Employee>
@@ -34,5 +37,21 @@ public class EmployeeValidation : AbstractValidator<Employee>
         RuleFor(x => x.Name).NotEmpty().WithMessage("Employee Name is not empty");
         RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Employee E-mail is not empty");
         RuleFor(x => x.DocumentNumber).NotEmpty().WithMessage("Employee Document Number is not empty");
+        RuleFor(p => p.BirthDate)
+            .Must(SerMaiorDe18Anos)
+            .WithMessage("The employee must be at least 18 years old.");
+    }
+    
+    private bool SerMaiorDe18Anos(DateTime dataNascimento)
+    {
+        DateTime hoje = DateTime.Today;
+        int idade = hoje.Year - dataNascimento.Year;
+
+        if (dataNascimento.Date > hoje.AddYears(-idade))
+        {
+            idade--;
+        }
+
+        return idade >= 18;
     }
 }
