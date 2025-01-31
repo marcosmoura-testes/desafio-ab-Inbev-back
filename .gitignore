@@ -12,4 +12,5 @@
 /src/employee_api/obj
 /src/infra/bin
 /src/infra/obj
-/tests/employee_api_test
+/tests/employee_api_test/bin
+/tests/employee_api_test/obj
