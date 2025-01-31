@@ -1,4 +1,5 @@
 using application.Interfaces;
+using domain.DTO;
 using domain.Entity;
 using employee_api.Handlers;
 using Microsoft.AspNetCore.Authorization;
@@ -13,18 +14,21 @@ namespace employee_api.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly ILogger<EmployeeController> _logger;
+    private readonly IConsultEmployeeUseCase _consultEmployeeUseCase;
     private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
     private readonly IUpdateEmployeeUseCase _updateEmployeeUseCase;
     private readonly IDeleteEmployeeUseCase _deleteEmployeeUseCase;
     private readonly IQueryEmployeeUseCase _queryEmployeeUseCase;
 
     public EmployeeController(ILogger<EmployeeController> logger,
+        IConsultEmployeeUseCase consultEmployeeUseCase,
         ICreateEmployeeUseCase createEmployeeUseCase,
         IUpdateEmployeeUseCase updateEmployeeUseCase,
         IDeleteEmployeeUseCase deleteEmployeeUseCase,
         IQueryEmployeeUseCase queryEmployeeUseCase)
     {
         _logger = logger;
+        _consultEmployeeUseCase = consultEmployeeUseCase;
         _createEmployeeUseCase = createEmployeeUseCase;
         _updateEmployeeUseCase = updateEmployeeUseCase;
         _deleteEmployeeUseCase = deleteEmployeeUseCase;
@@ -32,11 +36,11 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Employee employee)
+    public async Task<IActionResult> Create([FromBody] EmployeeDTO employeeDTO)
     {
         Employee logaded = CustomAuthorizeAttribute.logadedEmployee;
         
-        var createResuErr = await _createEmployeeUseCase.Execute(employee, logaded.AccessLevel);
+        var createResuErr = await _createEmployeeUseCase.Execute(employeeDTO, logaded.AccessLevel);
         
         if(createResuErr != null)
             return BadRequest(new { errors = createResuErr.ToList() });
@@ -68,6 +72,17 @@ public class EmployeeController : ControllerBase
             list = employees,
             totalRecords = 11//Carregar no retorno
         });
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        Employee employee = await _consultEmployeeUseCase.Execute(id);
+        
+        if(employee == null)
+            return NoContent();
+        
+        return Ok(employee);
     }
     
     [HttpDelete("{id}")]

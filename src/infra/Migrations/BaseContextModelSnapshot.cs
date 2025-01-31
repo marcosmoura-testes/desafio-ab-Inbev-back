@@ -77,11 +77,6 @@ namespace infra.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("varchar(15)")
-                        .HasColumnName("Phone");
-
                     b.Property<string>("State")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
@@ -99,6 +94,54 @@ namespace infra.Migrations
                             t.Property("BirthDate")
                                 .HasColumnName("BirthDate1");
                         });
+                });
+
+            modelBuilder.Entity("domain.Entity.EmployeeContact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("ContactName");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int")
+                        .HasColumnName("EmployeeId");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeContact", (string)null);
+                });
+
+            modelBuilder.Entity("domain.Entity.EmployeeContact", b =>
+                {
+                    b.HasOne("domain.Entity.Employee", "Employee")
+                        .WithMany("Contacts")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("domain.Entity.Employee", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

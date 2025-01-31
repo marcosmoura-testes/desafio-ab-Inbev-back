@@ -23,7 +23,15 @@ public class ConsultEmployeeUseCaseTests
             Name = "John Doe",
             Email = "john.doe@gmail.com",
             DocumentNumber = "12345678",
-            Phone = "123456789",
+            Contacts = new List<EmployeeContact>
+            {
+                new EmployeeContact
+                {
+                    EmployeeId = 1,
+                    PhoneNumber = "12345678901",
+                    ContactName = "Nome do contato"
+                }
+            },
             Address = "123 Main Street",
             AddressNumber = 123,
             BirthDate = DateTime.Today.AddYears(-20),

@@ -13,10 +13,12 @@ public class BaseContext: DbContext
     }
     
     public DbSet<Employee> Employee { get; set; }
+    public DbSet<EmployeeContact> EmployeeContact { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new EmployeeMap());
+        modelBuilder.ApplyConfiguration(new EmployeeContactMap());
     }
 
 }

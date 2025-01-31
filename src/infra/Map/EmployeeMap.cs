@@ -23,10 +23,6 @@ internal class EmployeeMap : IEntityTypeConfiguration<Employee>
         builder.Property(c => c.DocumentNumber)
             .HasMaxLength(20)
             .HasColumnName("DocumentNumber");
-
-        builder.Property(c => c.Phone)
-            .HasMaxLength(15)
-            .HasColumnName("Phone");
         
         builder.Property(c => c.Address)
             .HasMaxLength(250)
@@ -54,6 +50,11 @@ internal class EmployeeMap : IEntityTypeConfiguration<Employee>
            builder.Property(c => c.AccessLevel)
                .HasMaxLength(50)
                .HasColumnName("AccessLevel");
+           
+           builder.HasMany(e => e.Contacts)
+               .WithOne(c => c.Employee)
+               .HasForeignKey(c => c.EmployeeId)
+               .OnDelete(DeleteBehavior.Cascade);
 
     }
 }

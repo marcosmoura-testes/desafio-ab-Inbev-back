@@ -1,4 +1,5 @@
 ﻿using application.Interfaces;
+using domain.DTO;
 using domain.Entity;
 using domain.UoW;
 using domain.Utils;
@@ -16,16 +17,18 @@ public class CreateEmployeeUseCase : ICreateEmployeeUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<string[]> Execute(Employee employee, string accessLevelLogaded)
+    public async Task<string[]> Execute(EmployeeDTO employeeDTO, string accessLevelLogaded)
     {
         PasswordHasher PasswordHasher = new PasswordHasher();
         try
         {
             AccessLevelEnum accessLevelLogadedEnum = (AccessLevelEnum)Enum.Parse(typeof(AccessLevelEnum), accessLevelLogaded);
-            AccessLevelEnum employeeAccessLevelEnum = (AccessLevelEnum)Enum.Parse(typeof(AccessLevelEnum), employee.AccessLevel);
+            AccessLevelEnum employeeAccessLevelEnum = (AccessLevelEnum)Enum.Parse(typeof(AccessLevelEnum), employeeDTO.AccessLevel);
                 
             if(employeeAccessLevelEnum > accessLevelLogadedEnum)
                 return new[] { "You are not authorized to create a new employee with a higher access level than yours."};
+            
+            Employee employee = new Employee(employeeDTO);
             
             var validationResult = employee.IsValid();
 

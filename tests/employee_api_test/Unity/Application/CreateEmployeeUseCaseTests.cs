@@ -1,4 +1,5 @@
 ﻿using application.UseCases;
+using domain.DTO;
 using domain.Entity;
 using domain.UoW;
 using domain.ValueObjects;
@@ -22,12 +23,20 @@ public class CreateEmployeeUseCaseTests
         _unitOfWorkMock.Setup(uow => uow.EmployeesRepository.Save(It.IsAny<Employee>())).Returns(new Employee(){Id = 3});
         
         CreateEmployeeUseCase useCase  = new(_unitOfWorkMock.Object); 
-        Employee employee = new Employee
+        EmployeeDTO employee = new EmployeeDTO
         {
             Name = "John Doe",
             Email = "john.doe@gmail.com",
             DocumentNumber = "12345678",
-            Phone = "123456789",
+            Contacts = new List<EmployeeContactDTO>
+            {
+                new EmployeeContactDTO
+                {
+                    EmployeeId = 1,
+                    PhoneNumber = "12345678901",
+                    ContactName = "Nome do contato"
+                }
+            },
             Address = "123 Main Street",
             AddressNumber = 123,
             BirthDate = DateTime.Today.AddYears(-20),
@@ -51,12 +60,20 @@ public class CreateEmployeeUseCaseTests
         _unitOfWorkMock.Setup(uow => uow.EmployeesRepository.Save(It.IsAny<Employee>())).Returns(new Employee(){Id = 3});
         
         CreateEmployeeUseCase useCase  = new(_unitOfWorkMock.Object); 
-        Employee employee = new Employee
+        EmployeeDTO employee = new EmployeeDTO
         {
             Name = "John Doe",
             Email = "john.doe@gmail.com",
             DocumentNumber = "12345678",
-            Phone = "123456789",
+            Contacts = new List<EmployeeContactDTO>
+            {
+                new EmployeeContactDTO
+                {
+                    EmployeeId = 1,
+                    PhoneNumber = "12345678901",
+                    ContactName = "Nome do contato"
+                }
+            },
             Address = "123 Main Street",
             AddressNumber = 123,
             BirthDate = DateTime.Today.AddYears(-20),
@@ -81,12 +98,20 @@ public class CreateEmployeeUseCaseTests
         _unitOfWorkMock.Setup(uow => uow.EmployeesRepository.Save(It.IsAny<Employee>())).Returns(new Employee(){Id = 3});
         
         CreateEmployeeUseCase useCase  = new(_unitOfWorkMock.Object); 
-        Employee employee = new Employee
+        EmployeeDTO employee = new EmployeeDTO
         {
             Name = "John Doe",
             Email = "john.doe@gmail.com",
             DocumentNumber = "12345678",
-            Phone = "123456789",
+            Contacts = new List<EmployeeContactDTO>
+            {
+                new EmployeeContactDTO
+                {
+                    EmployeeId = 1,
+                    PhoneNumber = "12345678901",
+                    ContactName = "Nome do contato"
+                }
+            },
             Address = "123 Main Street",
             AddressNumber = 123,
             BirthDate = DateTime.Today.AddYears(-10),

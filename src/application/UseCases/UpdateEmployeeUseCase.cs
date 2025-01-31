@@ -27,7 +27,7 @@ public class UpdateEmployeeUseCase: IUpdateEmployeeUseCase
             employee.Name = employeeUpdate.Name;
             employee.Email = employeeUpdate.Email;
             employee.DocumentNumber = employeeUpdate.DocumentNumber;
-            employee.Phone = employeeUpdate.Phone;
+            employee.Contacts = employeeUpdate.Contacts;
             employee.Address = employeeUpdate.Address;
             employee.AddressNumber = employeeUpdate.AddressNumber;
             employee.City = employeeUpdate.City;

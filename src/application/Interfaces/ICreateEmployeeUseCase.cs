@@ -1,8 +1,9 @@
-﻿using domain.Entity;
+﻿using domain.DTO;
+using domain.Entity;
 
 namespace application.Interfaces;
 
 public interface ICreateEmployeeUseCase
 {
-    Task<string[]> Execute(Employee employee, string accessLevelLogaded);
+    Task<string[]> Execute(EmployeeDTO employeeDTO, string accessLevelLogaded);
 }
