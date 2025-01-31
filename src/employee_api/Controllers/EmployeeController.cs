@@ -1,11 +1,13 @@
 using application.Interfaces;
 using domain.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace employee_api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class EmployeeController : ControllerBase
 {
     private readonly ILogger<EmployeeController> _logger;

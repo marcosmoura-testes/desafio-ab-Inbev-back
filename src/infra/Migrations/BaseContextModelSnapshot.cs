@@ -67,6 +67,12 @@ namespace infra.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("BirthDate");
 
+                    b.Property<string>("NivelAcesso")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("NivelAcesso");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");

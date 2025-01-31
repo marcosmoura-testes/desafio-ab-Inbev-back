@@ -27,7 +27,7 @@ public class CreateEmployeeUseCase : ICreateEmployeeUseCase
                 return validationResult.errorMessages;
             }
 
-            employee.Password = PasswordHasher.HashPassword(employee.Password);
+            employee.Password = PasswordHasher.HashPassword($"{employee.Email}{employee.Password}");
             _unitOfWork.EmployeesRepository.Save(employee);
             return null;
         }

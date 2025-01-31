@@ -11,4 +11,9 @@ public class EmployeeRepository : BaseRepository<Employee, int>, IEmployeeReposi
     {
         _context = context;
     }
+
+    public async Task<Employee> GetByEmail(string email)
+    {
+        return _context.Employee.FirstOrDefault(emp => emp.Email == email);
+    }
 }

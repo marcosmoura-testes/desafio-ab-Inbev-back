@@ -17,6 +17,7 @@ public class Employee
     public string? Zip { get; set; }
     public string? ManagerName { get; set; }
     public string Password { get; set; }
+    public string NivelAcesso { get; set; }
 
     public (bool isValid, string[] errorMessages) IsValid()
     {

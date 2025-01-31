@@ -8,6 +8,7 @@ public static class Configuration
 {
     public static IServiceCollection AddApplicationDataSetup(this IServiceCollection services)
     {
+        services.AddScoped<IAuthEmployeeUseCase, AuthEmployeeUseCase>();
         services.AddScoped<IConsultEmployeeUseCase, ConsultEmployeeUseCase>();
         services.AddScoped<ICreateEmployeeUseCase, CreateEmployeeUseCase>();
         services.AddScoped<IDeleteEmployeeUseCase, DeleteEmployeeUseCase>();
