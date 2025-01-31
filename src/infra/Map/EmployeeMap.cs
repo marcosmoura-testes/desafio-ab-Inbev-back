@@ -51,9 +51,9 @@ internal class EmployeeMap : IEntityTypeConfiguration<Employee>
                .HasMaxLength(150)
                .HasColumnName("ManagerName");
            
-           builder.Property(c => c.NivelAcesso)
+           builder.Property(c => c.AccessLevel)
                .HasMaxLength(50)
-               .HasColumnName("NivelAcesso");
+               .HasColumnName("AccessLevel");
 
     }
 }

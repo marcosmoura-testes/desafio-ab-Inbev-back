@@ -45,8 +45,8 @@ public class AuthEmployeeUseCase:IAuthEmployeeUseCase
         {
             new Claim(JwtRegisteredClaimNames.Name, employee.Name),
             new Claim(JwtRegisteredClaimNames.Sub, employee.Email),
-            new Claim("NivelAcesso", employee.NivelAcesso),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim("AccessLevel", employee.AccessLevel),
+            new Claim(JwtRegisteredClaimNames.Jti, employee.Id.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

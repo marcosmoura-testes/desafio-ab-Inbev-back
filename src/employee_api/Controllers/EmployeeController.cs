@@ -1,5 +1,6 @@
 using application.Interfaces;
 using domain.Entity;
+using employee_api.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace employee_api.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize]
+[CustomAuthorize]
 public class EmployeeController : ControllerBase
 {
     private readonly ILogger<EmployeeController> _logger;
@@ -32,7 +34,9 @@ public class EmployeeController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Employee employee)
     {
-        var createResuErr = await _createEmployeeUseCase.Execute(employee);
+        Employee logaded = CustomAuthorizeAttribute.logadedEmployee;
+        
+        var createResuErr = await _createEmployeeUseCase.Execute(employee, logaded.AccessLevel);
         
         if(createResuErr != null)
             return BadRequest(new { errors = createResuErr.ToList() });

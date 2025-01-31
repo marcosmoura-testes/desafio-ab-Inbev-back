@@ -4,5 +4,5 @@ namespace application.Interfaces;
 
 public interface ICreateEmployeeUseCase
 {
-    Task<string[]> Execute(Employee employee);
+    Task<string[]> Execute(Employee employee, string accessLevelLogaded);
 }

@@ -2,6 +2,7 @@
 using domain.Entity;
 using domain.UoW;
 using domain.Utils;
+using domain.ValueObjects;
 using FluentValidation.Results;
 
 namespace application.UseCases;
@@ -15,11 +16,17 @@ public class CreateEmployeeUseCase : ICreateEmployeeUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<string[]> Execute(Employee employee)
+    public async Task<string[]> Execute(Employee employee, string accessLevelLogaded)
     {
         PasswordHasher PasswordHasher = new PasswordHasher();
         try
         {
+            AccessLevelEnum accessLevelLogadedEnum = (AccessLevelEnum)Enum.Parse(typeof(AccessLevelEnum), accessLevelLogaded);
+            AccessLevelEnum employeeAccessLevelEnum = (AccessLevelEnum)Enum.Parse(typeof(AccessLevelEnum), employee.AccessLevel);
+                
+            if(employeeAccessLevelEnum > accessLevelLogadedEnum)
+                return new[] { "You are not authorized to create a new employee with a higher access level than yours."};
+            
             var validationResult = employee.IsValid();
 
             if (!validationResult.isValid)

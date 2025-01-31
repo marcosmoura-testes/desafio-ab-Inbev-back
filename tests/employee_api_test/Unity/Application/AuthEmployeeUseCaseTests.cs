@@ -2,6 +2,7 @@
 
 using domain.Entity;
 using domain.UoW;
+using domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -35,7 +36,7 @@ public class AuthEmployeeUseCaseTests
             State = "São Paulo",
             Zip = "09820152",
             ManagerName = "ADmin",
-            NivelAcesso = "FUNCIONARIO",
+            AccessLevel = AccessLevelEnum.Employee.ToString(),
             Password = "uQJsRmTqkqFHkE2NAPEP9X3YC8lpGjEWDYsBjKot7BdDItwhw0mQgu1YUQuqwT0laMTh22O1aRbWEd9qv1ebTDQeEpiOMh3ygz+uF2QveKyk0KMtRkiFIhr31P46z9pP"
         };
 
@@ -69,7 +70,7 @@ public class AuthEmployeeUseCaseTests
             State = "São Paulo",
             Zip = "09820152",
             ManagerName = "ADmin",
-            NivelAcesso = "FUNCIONARIO",
+            AccessLevel = AccessLevelEnum.Employee.ToString(),
             Password = "uQJsRmTqkqFHkE2NAPEP9X3YC8lpGjEWDYsBjKot7BdDItwhw0mQgu1YUQuqwT0laMTh22O1aRbWEd9qv1ebTDQeEpiOMh3ygz+uF2QveKyk0KMtRkiFIhr31P46z9p0"
         };
 
