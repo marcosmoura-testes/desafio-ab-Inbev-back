@@ -1,5 +1,5 @@
 ﻿using domain.UoW;
-using infra.Repository.UoW;
+using infra.UoW;
 using  Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

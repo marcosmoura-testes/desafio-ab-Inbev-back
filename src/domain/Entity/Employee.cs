@@ -20,6 +20,7 @@ public class Employee
         City = dto.City;
         State = dto.State;
         Zip = dto.Zip;
+        ManagerId = dto.ManagerId;
         ManagerName = dto.ManagerName;
         Password = dto.Password;
         AccessLevel = dto.AccessLevel;
@@ -44,6 +45,7 @@ public class Employee
     public string? City { get; set; }
     public string? State { get; set; }
     public string? Zip { get; set; }
+    public int ManagerId { get; set; }
     public string? ManagerName { get; set; }
     public string Password { get; set; }
     public string AccessLevel { get; set; }

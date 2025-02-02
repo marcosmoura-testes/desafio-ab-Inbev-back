@@ -35,7 +35,13 @@ public class EmployeeController : ControllerBase
         _queryEmployeeUseCase = queryEmployeeUseCase;
     }
 
+    /// <summary>
+    /// Create a New Employee.
+    /// </summary>
+    /// <param name="employeeDTO">Object for send employee information</param>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] EmployeeDTO employeeDTO)
     {
         Employee logaded = CustomAuthorizeAttribute.logadedEmployee;
@@ -48,8 +54,14 @@ public class EmployeeController : ControllerBase
         return Created();
     }
     
+    /// <summary>
+    /// Update a exist Employee.
+    /// </summary>
+    /// <param name="employeeDTO">Object for send employee information</param>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Employee employee)
+    public async Task<IActionResult> Update(int id, [FromBody] EmployeeDTO employee)
     {
         var updateResuErr = await _updateEmployeeUseCase.Execute(id, employee);
         
@@ -59,21 +71,33 @@ public class EmployeeController : ControllerBase
         return Created();
     }
     
+    /// <summary>
+    /// Create a New Employee.
+    /// </summary>
+    /// <param name="page">Number of page</param>
+    /// <param name="limit">Number limit of registers</param>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet]
-    public async Task<IActionResult> Get(int pagesize, int limit)
+    public async Task<IActionResult> Get(int page, int limit)
     {
-        List<Employee> employees = await _queryEmployeeUseCase.Execute(pagesize, limit);
-        
-        if(employees == null)
+        var employeesExec = await _queryEmployeeUseCase.Execute(page, limit);
+        if(employeesExec.employees == null)
             return NoContent();
         
         return Ok(new
         {
-            list = employees,
-            totalRecords = 11//Carregar no retorno
+            list = employeesExec.employees,
+            total = employeesExec.totalRecords
         });
     }
     
+    /// <summary>
+    /// Get employee information by Id.
+    /// </summary>
+    /// <param name="id">Id employee</param>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -85,6 +109,12 @@ public class EmployeeController : ControllerBase
         return Ok(employee);
     }
     
+    /// <summary>
+    /// Get employee information by Id.
+    /// </summary>
+    /// <param name="id">Id employee</param>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

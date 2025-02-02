@@ -64,6 +64,9 @@ namespace infra.Migrations
                         .HasColumnType("varchar(150)")
                         .HasColumnName("Email");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ManagerName")
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)")

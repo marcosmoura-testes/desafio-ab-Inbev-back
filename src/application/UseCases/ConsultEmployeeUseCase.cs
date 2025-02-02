@@ -12,9 +12,11 @@ public class ConsultEmployeeUseCase : IConsultEmployeeUseCase
     {
         _unitOfWork = unitOfWork;
     }
-
+    
     public async Task<Employee> Execute(int employeeId)
     {
-        return _unitOfWork.EmployeesRepository.GetById(employeeId);
+        Employee employee = _unitOfWork.EmployeesRepository.GetById(employeeId, p => p.Contacts);
+    
+        return employee;
     }
 }

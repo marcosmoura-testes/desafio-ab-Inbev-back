@@ -5,4 +5,5 @@ namespace domain.UoW;
 public interface IUnitOfWork
 {
     IEmployeeRepository EmployeesRepository { get; }
+    IEmployeeContactRepository EmployeeContactRepository { get; }
 }

@@ -21,6 +21,7 @@ public class EmployeeDTO
         City = employee.City;
         State = employee.State;
         Zip = employee.Zip;
+        ManagerId = employee.ManagerId;
         ManagerName = employee.ManagerName;
         Password = employee.Password;
         AccessLevel = employee.AccessLevel;
@@ -43,9 +44,10 @@ public class EmployeeDTO
     public string? City { get; set; }
     public string? State { get; set; }
     public string? Zip { get; set; }
+    public int ManagerId { get; set; }
     public string? ManagerName { get; set; }
     public string Password { get; set; }
     public string AccessLevel { get; set; }
     
-    public ICollection<EmployeeContactDTO> Contacts { get; set; } = new List<EmployeeContactDTO>();
+    public List<EmployeeContactDTO> Contacts { get; set; } = new List<EmployeeContactDTO>();
 }

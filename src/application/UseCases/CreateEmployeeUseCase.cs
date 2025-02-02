@@ -37,6 +37,13 @@ public class CreateEmployeeUseCase : ICreateEmployeeUseCase
                 return validationResult.errorMessages;
             }
 
+            Employee employeeManager = _unitOfWork.EmployeesRepository.GetById(employeeDTO.ManagerId);
+
+            if(employeeManager == null)
+                return new[] { "the manager was not found." };
+            
+            employee.ManagerId = employeeManager.ManagerId;
+            employee.ManagerName = employeeManager.Name;
             employee.Password = PasswordHasher.HashPassword($"{employee.Email}{employee.Password}");
             _unitOfWork.EmployeesRepository.Save(employee);
             return null;

@@ -1,24 +1,28 @@
 
-# API de Funcionários
+# Management Employee API
 
-API dedicada a gerenciar as informações dos Funcionários
-
-## Configuração do Ambiente de trabalho
-
-Inciando a configuração do ambiente do desenvolvedor.
-
-### Criando o banco de dados
-
-* Pré requisitos: 
-Para criar o banco de dados estamos utilizando um container Docker do banco de dados MySQL que fica dentro da pasta **db** do repositório.
-
-Acesse a pasta `./db` e execute o comando para iniciar o Docker
+	This API is for management of the Employee on company, the endpoints "Servem" of send and request informations, "Siga" the instructions for run Projects
 
 
+### Pré requisitos
 
-#### Rodando o Migration para criar as tabelas
+	* Docker
+	* .Net 8
+	* Visual Studio (ou outra IDE)
+	
+
+## Docker Configurations
+
+This projects use docker for Up database MySQL, "Siga" the instructions for Up Container
+
+* Access Folder ```db``` in repository
+* Run command ```docker-compouse -d``` and waiting 
+* if success acess your database with database IDE
 
 
+### Runer Migration database for init Application
+
+to back has the instructions for runner comands migration 
 
 Atualização do banco de dados
 

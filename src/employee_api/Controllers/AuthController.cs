@@ -1,4 +1,5 @@
 ﻿using application.Interfaces;
+using domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace employee_api.Controllers;
@@ -15,9 +16,9 @@ public class AuthController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> AuthEmployee(string email, string password)
+    public async Task<IActionResult> AuthEmployee([FromBody]EmployeeLoginDTO employeeLoginDTO )
     {
-        var ucaseReturn = await _authEmployeeUseCase.Execute(email, password);
+        var ucaseReturn = await _authEmployeeUseCase.Execute(employeeLoginDTO.Email, employeeLoginDTO.Password);
         
         if(!string.IsNullOrEmpty(ucaseReturn.message))
             return BadRequest(ucaseReturn.message);

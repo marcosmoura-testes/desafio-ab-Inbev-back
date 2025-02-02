@@ -1,7 +1,8 @@
 ﻿using domain.Interfaces.Repository;
 using domain.UoW;
+using infra.Repository;
 
-namespace infra.Repository.UoW;
+namespace infra.UoW;
 
 public class UnitOfWork: IUnitOfWork
 {
@@ -10,7 +11,9 @@ public class UnitOfWork: IUnitOfWork
     {
         _context = context;
     }
+    
     private IEmployeeRepository _employeeRepository;
+    private IEmployeeContactRepository _employeeContactRepository;
     
     public IEmployeeRepository EmployeesRepository {
         get
@@ -21,6 +24,18 @@ public class UnitOfWork: IUnitOfWork
             }
 
             return _employeeRepository;
+        }
+    }
+
+    public IEmployeeContactRepository EmployeeContactRepository
+    {
+        get
+        {
+            if (_employeeContactRepository == null)
+            {
+                _employeeContactRepository = new EmployeeContactRepository(_context);
+            }
+            return _employeeContactRepository;
         }
     }
 }

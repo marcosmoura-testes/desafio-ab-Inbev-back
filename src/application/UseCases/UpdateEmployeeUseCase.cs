@@ -1,4 +1,5 @@
 ﻿using application.Interfaces;
+using domain.DTO;
 using domain.Entity;
 using domain.UoW;
 
@@ -13,7 +14,7 @@ public class UpdateEmployeeUseCase: IUpdateEmployeeUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<string[]> Execute(int employeeId, Employee employeeUpdate)
+    public async Task<string[]> Execute(int employeeId, EmployeeDTO employeeDTO)
     {
         try
         {
@@ -24,16 +25,31 @@ public class UpdateEmployeeUseCase: IUpdateEmployeeUseCase
                 return new[] { "Employee not found." };
             }
 
-            employee.Name = employeeUpdate.Name;
-            employee.Email = employeeUpdate.Email;
-            employee.DocumentNumber = employeeUpdate.DocumentNumber;
-            employee.Contacts = employeeUpdate.Contacts;
-            employee.Address = employeeUpdate.Address;
-            employee.AddressNumber = employeeUpdate.AddressNumber;
-            employee.City = employeeUpdate.City;
-            employee.State = employeeUpdate.State;
-            employee.Zip = employeeUpdate.Zip;
-            employee.ManagerName = employeeUpdate.ManagerName;
+            employee.Contacts = new List<EmployeeContact>();
+
+            foreach (var contact in  employeeDTO.Contacts)
+            {
+                employee.Contacts.Add(new EmployeeContact(contact)); 
+            }
+            
+            employee.Name = employeeDTO.Name;
+            employee.Email = employeeDTO.Email;
+            employee.DocumentNumber = employeeDTO.DocumentNumber;
+            
+            employee.Address = employeeDTO.Address;
+            employee.AddressNumber = employeeDTO.AddressNumber;
+            employee.City = employeeDTO.City;
+            employee.State = employeeDTO.State;
+            employee.Zip = employeeDTO.Zip;
+            employee.ManagerName = employeeDTO.ManagerName;
+            
+            Employee employeeManager = _unitOfWork.EmployeesRepository.GetById(employeeDTO.ManagerId);
+
+            if(employeeManager == null)
+                return new[] { "the manager was not found." };
+            
+            employee.ManagerId = employeeManager.ManagerId;
+            employee.ManagerName = employeeManager.Name;
             
             _unitOfWork.EmployeesRepository.Update(employee);
             return null;

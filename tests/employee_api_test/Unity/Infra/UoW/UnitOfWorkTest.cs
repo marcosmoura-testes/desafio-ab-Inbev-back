@@ -1,5 +1,5 @@
 ﻿using infra;
-using infra.Repository.UoW;
+using infra.UoW;
 using Microsoft.EntityFrameworkCore;
 
 namespace employee_api_test.Unity.Infra.UoW;

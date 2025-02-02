@@ -1,4 +1,5 @@
 ﻿using application.UseCases;
+using domain.DTO;
 using domain.Entity;
 using domain.UoW;
 using Moq;
@@ -50,7 +51,8 @@ public class UpdateEmployeeUseCaseTests
 
         UpdateEmployeeUseCase useCase = new(_unitOfWorkMock.Object);
        
-        var executeReturn = await useCase.Execute(employee.Id, employee);
+        EmployeeDTO employeeDto = new EmployeeDTO(employee);
+        var executeReturn = await useCase.Execute(employee.Id, employeeDto);
 
         Assert.IsNull(executeReturn);
     }
@@ -88,8 +90,9 @@ public class UpdateEmployeeUseCaseTests
             .Returns(employee);
 
         UpdateEmployeeUseCase useCase = new(_unitOfWorkMock.Object);
-        
-        var executeReturn = await useCase.Execute(employee.Id, employee);
+
+        EmployeeDTO employeeDto = new EmployeeDTO(employee);
+        var executeReturn = await useCase.Execute(employee.Id, employeeDto);
 
         Assert.IsNotNull(executeReturn);
         Assert.That(executeReturn[0], Is.EqualTo("Employee not found."));

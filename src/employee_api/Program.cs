@@ -12,6 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationDataSetup();
 builder.Services.AddInfraDataSetup(builder.Configuration);
+
+// Configuração do CORS (selecione a política adequada)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.AllowAnyOrigin() // Permite todas as origens (você pode restringir as origens específicas aqui)
+              .AllowAnyMethod()  // Permite todos os métodos HTTP (GET, POST, PUT, DELETE, etc.)
+              .AllowAnyHeader(); // Permite todos os cabeçalhos
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -48,7 +60,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -76,6 +87,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Adicionando o middleware de CORS
+app.UseCors("AllowAllOrigins");  // Aplica a política "AllowAllOrigins" às requisições
 
 app.UseAuthentication();
 app.UseAuthorization();

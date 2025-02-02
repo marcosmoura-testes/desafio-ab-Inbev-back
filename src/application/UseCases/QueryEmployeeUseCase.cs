@@ -13,8 +13,11 @@ public class QueryEmployeeUseCase: IQueryEmployeeUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<List<Employee>> Execute(int page, int limit)
+    public async Task<(List<Employee> employees, int totalRecords)> Execute(int page, int limit)
     {
-        return _unitOfWork.EmployeesRepository.GetAllPaginated(limit, page).ToList();
+        List<Employee> employees = _unitOfWork.EmployeesRepository.GetAllPaginated(limit, page, p => p.Contacts).ToList();
+        int totalRecords = _unitOfWork.EmployeesRepository.Count();
+        
+        return (employees, totalRecords);
     }
 }
