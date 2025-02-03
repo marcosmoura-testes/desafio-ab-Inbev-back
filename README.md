@@ -82,10 +82,3 @@ To set up the database and ensure it's ready for use, follow the steps below to 
    Replace `PreviousMigrationName` with the name of the migration you want to revert to.
 
 ---
-
-### Notes:
-
-- **docker-compose up -d**: This command brings up the database container in detached mode (`-d` means "detached").
-- **dotnet ef migrations**: These are the commands used to manage Entity Framework migrations in the project.
-
-By following these steps, your environment will be set up and ready to run the application.
